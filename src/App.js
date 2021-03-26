@@ -1,10 +1,22 @@
 import './App.css';
-import Countdown from './components/Countdown';
+import GlobalStyle from './globalStyles';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Navbar, Countdown } from './components';
 
 function App() {
   return (
     <div className="App">
-      <Countdown/>
+      <Router>
+        <GlobalStyle />
+        <Navbar />
+        <Countdown />
+        {/* <Switch>
+          <Route path='/' exact component={Home} />
+          <Route path='/leaderboard' component={Leaderboard} />
+          <Route path='/quiz' component={Quiz} />
+        </Switch>
+        <Footer /> */}
+      </Router>
     </div>
   );
 }
