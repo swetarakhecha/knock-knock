@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import firebase from 'firebase'
 import { UserContext } from 'C:/Users/asus/Desktop/knock-knock/src/UserContext.js'
 
-export const AuthPage = () => {
+const AuthPage = () => {
     const provider = new firebase.auth.GoogleAuthProvider()
 
     const currentUser = useContext(UserContext);
@@ -16,17 +16,14 @@ export const AuthPage = () => {
     }
 
     const style = {
-        marginLeft: 'auto',
-        marginRight: 'auto',
+        margin: "10px 20px",
         color: "white",
         width: "6em",
-        backgroundColor: "red",
+        backgroundColor: "#b81911",
         padding: "10px 20px",
         cursor: 'pointer',
         border: 'none',
         borderRadius: "7px",
-        position: "absolute",
-        bottom: "5%",
         fontSize: '1em'
     };
 
@@ -41,3 +38,5 @@ export const AuthPage = () => {
         </>
     )
 }
+
+export default AuthPage

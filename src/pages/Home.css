@@ -1,0 +1,46 @@
+.holder{
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    background: #19172e;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top:0;
+}
+
+.dp {
+    position: relative;
+    height: 100px;
+    border-radius: 50%;
+    top: -50px;
+}
+
+h1 {
+    font-size: 6em;
+    top: -50px;
+    position: relative;
+}
+
+.btngrp {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    top: -50px;
+}
+
+.btngrp .start{
+    margin: 10px 20px;
+    color: white;
+    width: 6em;
+    background: #b81911;
+    padding: 10px 20px;
+    cursor: 'pointer';
+    border: 'none';
+    border-radius: 7px;
+    font-size: '1em';
+    text-decoration: none;
+}

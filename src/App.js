@@ -3,20 +3,25 @@ import './App.css';
 import GlobalStyle from './globalStyles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Navbar, Countdown } from './components';
-import { AuthPage } from './components/Auth/AuthPage';
-import { UserContext } from './UserContext'
+// import { UserContext } from './UserContext'
+import Home from './pages/Home';
+
 function App() {
 
-  const currentUser = useContext(UserContext);
+  const countdownDate = new Date('April 3, 2021 00:00:00 GMT+0530').getTime();
+  const now = new Date().getTime();
+  const distance = countdownDate - now;
+
+  // const currentUser = useContext(UserContext);
 
   return (
     <div className="App">
       <Router>
         <GlobalStyle />
         <Navbar />
-        <Countdown />
-        <AuthPage />
-        {currentUser && <p>{currentUser.email}</p>}
+        {
+          (distance > 0) ? <Countdown /> : <Home />
+        }
         {/* <Switch>
           <Route path='/' exact component={Home} />
           <Route path='/leaderboard' component={Leaderboard} />
