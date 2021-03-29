@@ -29,7 +29,7 @@ const AuthPage = () => {
 
     return (
         <>
-            {!user.urrentUser &&
+            {!user.currentUser &&
                 <button
                     onClick={authWithgoogle}
                     style={style}

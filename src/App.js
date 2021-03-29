@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import './App.css';
 import GlobalStyle from './globalStyles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Navbar, Countdown } from './components';
+import { Navbar, Countdown, Footer } from './components';
 import { UserContext } from './UserContext'
 import Home from './pages/Home';
 import Quiz from './pages/Quiz';
@@ -40,6 +40,7 @@ function App() {
             </>
             )
         }
+        <Footer/>
       </Router>
     </div>
   );
