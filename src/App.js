@@ -3,7 +3,7 @@ import './App.css';
 import GlobalStyle from './globalStyles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Navbar, Countdown } from './components';
-// import { UserContext } from './UserContext'
+import { UserContext } from './UserContext'
 import Home from './pages/Home';
 import Quiz from './pages/Quiz'
 
@@ -13,7 +13,7 @@ function App() {
   const now = new Date().getTime();
   const distance = countdownDate - now;
 
-  // const currentUser = useContext(UserContext);
+  const currentUser = useContext(UserContext);
 
   return (
     <div className="App">
@@ -26,7 +26,12 @@ function App() {
               <Navbar />
               <Switch>
                 <Route path='/' exact component={Home} />
-                <Route path='/quiz' exact component={Quiz} />
+                {
+                  currentUser && <Route path='/quiz' exact component={Quiz} />
+                }
+                {
+                  !currentUser && <Route path='/quiz' exact component={Home} />
+                }
               </Switch>
             </>
             )
