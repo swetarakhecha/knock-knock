@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 function Home() {
 
-    const currentUser = useContext(UserContext);
+    const user = useContext(UserContext);
 
     const style = {
         margin: "10px 20px",
@@ -23,18 +23,16 @@ function Home() {
 
     return (
         <div className='holder'>
-            {currentUser && <img src={currentUser.photoURL} alt={currentUser.displayName} className='dp'/>}
+            {user.currentUser && <img src={user.currentUser.photoURL} alt={user.currentUser.displayName} className='dp'/>}
             <h1>Knock Knock</h1>
             <div className='btngrp'>
                 <Link to='/quiz'>
                     <button style={style} className='start'>Start</button>
                 </Link>
-                {!currentUser && <AuthPage />}
+                {!user.currentUser && <AuthPage />}
             </div>
         </div>
     )
 }
-
-
 
 export default Home

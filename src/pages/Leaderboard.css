@@ -1,0 +1,35 @@
+#leaderboard {
+    font-size: 3em;
+    margin: 20px;
+    position: relative;
+    bottom: 40%;
+}
+
+.player--container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    bottom: 30%;
+}
+
+.playerRow {
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    padding: 10px 0;
+    width: 70%;
+    border-bottom: 1px solid white;
+}
+
+.playerRow p:nth-child(1) {
+    margin-right: 100px;
+    padding: 0;
+}
+
+.playerRow p:nth-child(2) {
+    margin-left: 100px;
+    padding: 0;
+}

@@ -5,7 +5,7 @@ import { UserContext } from 'C:/Users/asus/Desktop/knock-knock/src/UserContext.j
 const AuthPage = () => {
     const provider = new firebase.auth.GoogleAuthProvider()
 
-    const currentUser = useContext(UserContext);
+    const user = useContext(UserContext);
 
     const authWithgoogle = () => {
         firebase.auth().signInWithPopup(provider).then((result) => {
@@ -29,7 +29,7 @@ const AuthPage = () => {
 
     return (
         <>
-            {!currentUser &&
+            {!user.urrentUser &&
                 <button
                     onClick={authWithgoogle}
                     style={style}

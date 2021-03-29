@@ -32,19 +32,16 @@ function Navbar() {
                         </MobileIcon>
                         <NavMenu onClick={handleClick} click={click}>
                             <NavItem>
-                                <NavLinks to='/' onClick={closeMobileMenu}>
-                                    Home
-                </NavLinks>
+                                <NavLinks to='/' onClick={closeMobileMenu}>Home</NavLinks>
                             </NavItem>
                             <NavItem>
-                                <NavLinks to='/quiz' onClick={closeMobileMenu}>
-                                    Quiz
-                </NavLinks>
+                                <NavLinks to='/rules' onClick={closeMobileMenu}>Rules</NavLinks>
                             </NavItem>
                             <NavItem>
-                                <NavLinks to='/leaderboard' onClick={closeMobileMenu}>
-                                    Leaderboard
-                </NavLinks>
+                                <NavLinks to='/quiz' onClick={closeMobileMenu}>Quiz</NavLinks>
+                            </NavItem>
+                            <NavItem>
+                                <NavLinks to='/leaderboard' onClick={closeMobileMenu}>Leaderboard</NavLinks>
                             </NavItem>
                         </NavMenu>
                     </NavbarContainer>

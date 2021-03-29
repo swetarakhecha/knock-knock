@@ -5,7 +5,7 @@ import './Quiz.css'
 import { UserContext } from '../UserContext'
 
 export default function Quiz() {
-    const currentUser = useContext(UserContext);
+    const user = useContext(UserContext);
     const database = Firebase.database();
     const questions = [
         {
@@ -146,38 +146,41 @@ export default function Quiz() {
 
     ];
 
-    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [currentQuestion, setCurrentQuestion] = useState(user.currentQuestion);
     const [showScore, setShowScore] = useState(false);
-    const [score, setScore] = useState(0);
+    const [score, setScore] = useState(user.currentScore);
 
     const handleAnswerOptionClick = (isCorrect) => {
         if (isCorrect) {
             setScore(score + 1);
+            user.setCurrentScore(score + 1);
         }
 
         const nextQuestion = currentQuestion + 1;
+        user.setCurrentScore(currentQuestion + 1);
         if (nextQuestion < questions.length) {
             setCurrentQuestion(nextQuestion);
         } else {
             setShowScore(true);
-            const rootRef = database.ref('/scores/' + currentUser.displayName);
+            const rootRef = database.ref('/scores/');
             const autoID = rootRef.push().key;
             rootRef.child(autoID).set({
                 score: score,
-                email: currentUser.email
+                email: user.currentUser.email,
+                name:  user.currentUser.displayName
             })
 
             const attemptRef = database.ref('/attempted/');
             const attemptID = attemptRef.push().key;
             attemptRef.child(attemptID).set({
-                email: currentUser.email
+                email: user.currentUser.email
             })
         }
     };
     return (
         <div className='quizContainer'>
             <div className='quiz'>
-                {showScore ? (
+                {(showScore || user.currentQuestion === questions.length) ? (
                     <div className='score-section'>
                         You scored {score} out of {questions.length}
                     </div>
