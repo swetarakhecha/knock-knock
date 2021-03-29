@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import firebase from 'firebase'
-import Firebase from './firebase.js'
-export default function App() {
+import Firebase from '../firebase.js'
+import './Quiz.css'
+import { UserContext } from '../UserContext'
+
+export default function Quiz() {
+    const currentUser = useContext(UserContext);
+    const database = Firebase.database();
     const questions = [
         {
             questionText: 'The probability that it is Friday and that a student is absent is 0.03. Since there are 5 school days in a week, the probability that it is Friday is 0.2. What is the probability that a student is absent given that today is Friday?',
@@ -140,4 +145,59 @@ export default function App() {
         },
 
     ];
+
+    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [showScore, setShowScore] = useState(false);
+    const [score, setScore] = useState(0);
+
+    const handleAnswerOptionClick = (isCorrect) => {
+        if (isCorrect) {
+            setScore(score + 1);
+        }
+
+        const nextQuestion = currentQuestion + 1;
+        if (nextQuestion < questions.length) {
+            setCurrentQuestion(nextQuestion);
+        } else {
+            setShowScore(true);
+            const rootRef = database.ref('/scores/' + currentUser.displayName);
+            const autoID = rootRef.push().key;
+            rootRef.child(autoID).set({
+                score: score,
+                email: currentUser.email
+            })
+
+            const attemptRef = database.ref('/attempted/');
+            const attemptID = attemptRef.push().key;
+            attemptRef.child(attemptID).set({
+                email: currentUser.email
+            })
+        }
+    };
+    return (
+        <div className='quizContainer'>
+            <div className='quiz'>
+                {showScore ? (
+                    <div className='score-section'>
+                        You scored {score} out of {questions.length}
+                    </div>
+                ) : (
+                    <>
+                        <div className='question-section'>
+                            <div className='question-count'>
+                                <span>Question {currentQuestion + 1}</span>/{questions.length}
+                            </div>
+                            <div className='question-text'>{questions[currentQuestion].questionText}</div>
+                        </div>
+                        <div className='answer-section'>
+                            {questions[currentQuestion].answerOptions.map((answerOption) => (
+                                <button className='option' onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}>{answerOption.answerText}</button>
+                            ))}
+                        </div>
+                    </>
+                )}
+            </div>
+        </div>
+
+    );
 }
