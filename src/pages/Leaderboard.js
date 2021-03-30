@@ -5,76 +5,52 @@ import './Leaderboard.css'
 
 function Leaderboard() {
     const database = Firebase.database();
-    const [players1, setPlayers1] = useState([]);
-    const [players2, setPlayers2] = useState([]);
+    const [players, setPlayers] = useState([]);
 
     useEffect(() => {
-        const rootRef1 = database.ref('/scores/day1');
-        rootRef1.on('value', function (snapshot) {
-            var tutorials = [];
+        const secondDay = new Date('April 4, 2021 00:00:00 GMT+0530').getTime();
+        const now = new Date().getTime();
+        if (now > secondDay) {
+            const rootRef2 = database.ref('/scores/day2');
+            rootRef2.on('value', function (snapshot) {
+                var tutorials = [];
 
-            snapshot.forEach(function (childSnapshot) {
-                var key = childSnapshot.key;
-                var data = childSnapshot.val();
-                tutorials.push({ key: key, name: data.name, score: data.score });
-                setPlayers1(tutorials);
+                snapshot.forEach(function (childSnapshot) {
+                    var key = childSnapshot.key;
+                    var data = childSnapshot.val();
+                    tutorials.push({ key: key, name: data.name, score: data.score });
+                    setPlayers(tutorials);
+                });
             });
-        });
+        }
+        else {
+            const rootRef1 = database.ref('/scores/day1');
+            rootRef1.on('value', function (snapshot) {
+                var tutorials = [];
 
-        const rootRef2 = database.ref('/scores/day2');
-        rootRef2.on('value', function (snapshot) {
-            var tutorials = [];
-
-            snapshot.forEach(function (childSnapshot) {
-                var key = childSnapshot.key;
-                var data = childSnapshot.val();
-                tutorials.push({ key: key, name: data.name, score: data.score });
-                setPlayers2(tutorials);
+                snapshot.forEach(function (childSnapshot) {
+                    var key = childSnapshot.key;
+                    var data = childSnapshot.val();
+                    tutorials.push({ key: key, name: data.name, score: data.score });
+                    setPlayers(tutorials);
+                });
             });
-        });
+        }
     }, [])
 
     return (
         <div className='holder'>
             <h2 id='leaderboard'>Leaderboard</h2>
-            {
-                (JSON.stringify(players1) === JSON.stringify([])) ?
-                    <h3>No scores yet for day 1!!</h3>
-                    :
-                    <div>
-
-                        <h3>Day 1</h3>
-                        <div className='player--container'>
-                            {players1.map(player => {
-                                return (
-                                    <div className='playerRow'>
-                                        <p>{player.name}</p>
-                                        <p>{player.score}</p>
-                                    </div>
-                                )
-                            })}
+            <div className='player--container'>
+                {players.map(player => {
+                    return (
+                        <div className='playerRow'>
+                            <p>{player.name}</p>
+                            <p>{player.score}</p>
                         </div>
-                    </div>
-            }
-
-            {
-                (JSON.stringify(players2) === JSON.stringify([])) ?
-                    <h3>No scores yet for Day 2!!</h3>
-                    :
-                    <div>
-                        <h3>Day 2</h3>
-                        <div className='player--container'>
-                            {players2.map(player => {
-                                return (
-                                    <div className='playerRow'>
-                                        <p>{player.name}</p>
-                                        <p>{player.score}</p>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
-            }
+                    )
+                })}
+            </div>
         </div>
     )
 }

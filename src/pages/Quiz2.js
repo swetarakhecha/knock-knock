@@ -4,7 +4,7 @@ import Firebase from '../firebase.js'
 import './Quiz.css'
 import { UserContext } from '../UserContext'
 
-export default function Quiz() {
+export default function Quiz2() {
     const user = useContext(UserContext);
     const database = Firebase.database();
     const questions = [
@@ -162,7 +162,7 @@ export default function Quiz() {
             setCurrentQuestion(nextQuestion);
         } else {
             setShowScore(true);
-            const rootRef = database.ref('/scores/day1/');
+            const rootRef = database.ref('/scores/day2/');
             const autoID = rootRef.push().key;
             rootRef.child(autoID).set({
                 score: score,
@@ -170,7 +170,7 @@ export default function Quiz() {
                 name:  user.currentUser.displayName
             })
 
-            const attemptRef = database.ref('/attempted/');
+            const attemptRef = database.ref('/attempted/day2/');
             const attemptID = attemptRef.push().key;
             attemptRef.child(attemptID).set({
                 email: user.currentUser.email
