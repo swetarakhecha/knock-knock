@@ -162,7 +162,7 @@ export default function Quiz() {
             setCurrentQuestion(nextQuestion);
         } else {
             setShowScore(true);
-            const rootRef = database.ref('/scores/');
+            const rootRef = database.ref('/scores/day1/');
             const autoID = rootRef.push().key;
             rootRef.child(autoID).set({
                 score: score,
@@ -201,6 +201,5 @@ export default function Quiz() {
                 )}
             </div>
         </div>
-
     );
 }
