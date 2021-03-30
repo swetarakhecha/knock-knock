@@ -2,7 +2,7 @@
     position: relative;
     height: 100vh;
     width: 100%;
-    background: #19172e;
+    background-image: url(C:\Users\asus\Desktop\knock-knock\src\assets\Bg.jpg);
     display: flex;
     flex-direction: column;
     justify-content: center;

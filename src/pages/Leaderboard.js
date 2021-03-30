@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react'
 import firebase from 'firebase'
 import Firebase from '../firebase.js'
 import './Leaderboard.css'
+import _ from 'lodash';
 
 function Leaderboard() {
     const database = Firebase.database();
     const [players, setPlayers] = useState([]);
 
     useEffect(() => {
-        const secondDay = new Date('April 4, 2021 00:00:00 GMT+0530').getTime();
+        const secondDay = new Date('April 2, 2021 00:00:00 GMT+0530').getTime();
         const now = new Date().getTime();
         if (now > secondDay) {
-            const rootRef2 = database.ref('/scores/day2');
+            const rootRef2 = database.ref('/scores/day2/');
             rootRef2.on('value', function (snapshot) {
                 var tutorials = [];
 
@@ -24,19 +25,23 @@ function Leaderboard() {
             });
         }
         else {
-            const rootRef1 = database.ref('/scores/day1');
+            const rootRef1 = database.ref('/scores/day1/');
             rootRef1.on('value', function (snapshot) {
                 var tutorials = [];
-
                 snapshot.forEach(function (childSnapshot) {
                     var key = childSnapshot.key;
                     var data = childSnapshot.val();
                     tutorials.push({ key: key, name: data.name, score: data.score });
-                    setPlayers(tutorials);
+                    setPlayers(_.uniqBy(tutorials, elem => [tutorials.name, tutorials.name].join()));
                 });
             });
         }
+
+        // const distinctValues = _.uniqBy(players, elem => [elem.name, elem.name].join());
+        // setPlayers(distinctValues);
     }, [])
+
+    console.log(players);
 
     return (
         <div className='holder'>

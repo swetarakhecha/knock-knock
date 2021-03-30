@@ -9,7 +9,7 @@ function Countdown() {
 
     let interval = useRef();
     const startTimer = () => {
-        const countdownDate = new Date('April 3, 2021 00:00:00 GMT+0530').getTime();
+        const countdownDate = new Date('April 2, 2021 00:00:00 GMT+0530').getTime();
 
         interval = setInterval(() => {
             const now = new Date().getTime();

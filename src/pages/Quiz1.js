@@ -72,7 +72,7 @@ export default function Quiz1() {
             ],
         },
         {
-            questionText: '. Pointing to Manju, Raju said, “The son of her only brother is the brother of my wife”. How is Manju related to Raju?',
+            questionText: 'Pointing to Manju, Raju said, “The son of her only brother is the brother of my wife”. How is Manju related to Raju?',
             answerOptions: [
                 { answerText: 'Sister of father-in-law', isCorrect: true },
                 { answerText: 'Mother’s sister', isCorrect: false },
@@ -126,7 +126,7 @@ export default function Quiz1() {
             ],
         },
         {
-            questionText: '24.	Assume the ladder is NOT an extension ladder.A 25 ft ladder is placed with its foot 7 ft away from a building. If the top of the ladder slips down 4 ft, how many feet will the bottom slide out?',
+            questionText: 'Assume the ladder is NOT an extension ladder.A 25 ft ladder is placed with its foot 7 ft away from a building. If the top of the ladder slips down 4 ft, how many feet will the bottom slide out?',
             answerOptions: [
                 { answerText: '15', isCorrect: false },
                 { answerText: '10', isCorrect: false },
@@ -135,7 +135,7 @@ export default function Quiz1() {
             ],
         },
         {
-            questionText: '27.	Between 1000 and 2000 you can get each integer as the sum of non-negative consecutive integers.For example,147+148+149+150+151+152+153 = 1050.There is only one number that you cannot get.What is this number?',
+            questionText: 'Between 1000 and 2000 you can get each integer as the sum of non-negative consecutive integers.For example,147+148+149+150+151+152+153 = 1050.There is only one number that you cannot get.What is this number?',
             answerOptions: [
                 { answerText: '1126', isCorrect: false },
                 { answerText: '1426', isCorrect: false },
@@ -148,14 +148,13 @@ export default function Quiz1() {
 
     const [currentQuestion, setCurrentQuestion] = useState(user.currentQuestion);
     const [showScore, setShowScore] = useState(false);
-    const [score, setScore] = useState(user.currentScore);
+    const [score, setScore] = useState(0);
 
     const handleAnswerOptionClick = (isCorrect) => {
         if (isCorrect) {
             setScore(score + 1);
             user.setCurrentScore(score + 1);
         }
-
         const nextQuestion = currentQuestion + 1;
         user.setCurrentScore(currentQuestion + 1);
         if (nextQuestion < questions.length) {

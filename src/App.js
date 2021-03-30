@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import './App.css';
 import GlobalStyle from './globalStyles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Navbar, Countdown, Footer } from './components';
+import { Navbar, Countdown } from './components';
 import { UserContext } from './UserContext'
 import Home from './pages/Home';
 import Quiz1 from './pages/Quiz1';
@@ -12,14 +12,14 @@ import Leaderboard from './pages/Leaderboard';
 
 function App() {
 
-  const countdownDate = new Date('April 3, 2020 00:00:00 GMT+0530').getTime();
+  const countdownDate = new Date('April 2, 2020 00:00:00 GMT+0530').getTime();
   const now = new Date().getTime();
   const distance = countdownDate - now;
   const [day, setDay] = useState(1)
   const user = useContext(UserContext);
 
   useEffect(() => {
-    const secondDay = new Date('April 4, 2021 00:00:00 GMT+0530').getTime();
+    const secondDay = new Date('April 3, 2021 00:00:00 GMT+0530').getTime();
     if (now > secondDay) {
       setDay(2);
     }
@@ -51,7 +51,6 @@ function App() {
             </>
             )
         }
-        <Footer />
       </Router>
     </div>
   );
