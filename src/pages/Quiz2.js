@@ -1,151 +1,152 @@
-import React, { useState, useContext } from 'react'
+import React from 'react'
+import React, { useState } from 'react';
 import firebase from 'firebase'
-import Firebase from '../firebase.js'
-import './Quiz.css'
-import { UserContext } from '../UserContext'
-
-export default function Quiz2() {
-    const user = useContext(UserContext);
-    const database = Firebase.database();
+import Firebase from './firebase.js'
+export default function App() {
     const questions = [
         {
-            questionText: 'The probability that it is Friday and that a student is absent is 0.03. Since there are 5 school days in a week, the probability that it is Friday is 0.2. What is the probability that a student is absent given that today is Friday?',
-            answerOptions: [
-                { answerText: '10%', isCorrect: false },
-                { answerText: '15%', isCorrect: true },
-                { answerText: '12%', isCorrect: false },
-                { answerText: '13%', isCorrect: false },
-            ],
-        },
+			questionText: 'What is the missing number? I6, 06, 68, 88, 98',
+			answerOptions: [
+				{ answerText: '85', isCorrect: false },
+				{ answerText: '87', isCorrect: true },
+				{ answerText: '92', isCorrect: false },
+				{ answerText: '99', isCorrect: false },
+			],
+		},
         {
-            questionText: 'If the LCM of p, q is r2t4s2, where r, s, t are prime numbers and p, q are the positive integers then the number of ordered pairs (p, q)?',
-            answerOptions: [
-                { answerText: '210', isCorrect: false },
-                { answerText: '225', isCorrect: true },
-                { answerText: '275', isCorrect: false },
-                { answerText: '250', isCorrect: false },
-            ],
-        },
+			questionText: 'There is a three-digit number. The second digit is four times as big as the third digit, while the first digit is three less than the second digit. What is the number?',
+			answerOptions: [
+				{ answerText: '240', isCorrect: false },
+				{ answerText: '369', isCorrect: false },
+				{ answerText: '682', isCorrect: false },
+				{ answerText: '141', isCorrect: true },
+			],
+		},
         {
-            questionText: 'The number of arrangements of the letters of the word BANANA in which the two Ns do not appear adjacently?',
-            answerOptions: [
-                { answerText: '40', isCorrect: true },
-                { answerText: '44', isCorrect: false },
-                { answerText: '50', isCorrect: false },
-                { answerText: '48', isCorrect: false },
-            ],
-        },
+			questionText: 'A ship anchored in a port has a ladder which hangs over the side. The length of the ladder is 200cm, the distance between each rung in 20cm and the bottom rung touches the water. The tide rises at a rate of 10cm an hour. When will the water reach the fifth rung?',
+			answerOptions: [
+				{ answerText: '10 hours later', isCorrect: false },
+				{ answerText: '7 hours later', isCorrect: false },
+				{ answerText: '5 hours later', isCorrect: false },
+				{ answerText: 'Never', isCorrect: true},
+			],
+		},
         {
-            questionText: 'The letters of the word COCHIN are permuted and all the permutations are arranged in alphabetically in a dictionary. The number of words that appear before the word COCHIN is?',
-            answerOptions: [
-                { answerText: '80', isCorrect: false },
-                { answerText: '84', isCorrect: false },
-                { answerText: '90', isCorrect: false },
-                { answerText: '96', isCorrect: true },
-            ],
-        },
+			questionText: 'Look at this series: 46, 44, 40, 38, 34, … What number should come next?',
+			answerOptions: [
+				{ answerText: '30', isCorrect: false },
+				{ answerText: '32', isCorrect: true },
+				{ answerText: '28', isCorrect: false },
+				{ answerText: '26', isCorrect: false },
+			],
+		},
         {
-            questionText: 'A student is to answer 10 out of 13 questions in an examination such that he must choose at least 4 from the first 5 questions. The number of choices available to him is?',
-            answerOptions: [
-                { answerText: '172', isCorrect: false },
-                { answerText: '226', isCorrect: false },
-                { answerText: '196', isCorrect: true },
-                { answerText: '210', isCorrect: false },
-            ],
-        },
+			questionText: 'At a party, everyone shook hands with everybody else. There were 496 handshakes. How many people were at the party?',
+			answerOptions: [
+				{ answerText: '32', isCorrect: true },
+				{ answerText: '35', isCorrect: false },
+				{ answerText: '38', isCorrect: false },
+				{ answerText: '29', isCorrect: false },
+			],
+		},
         {
-            questionText: '8, 81, 1024,? ',
-            answerOptions: [
-                { answerText: '7776', isCorrect: false },
-                { answerText: '16384', isCorrect: false },
-                { answerText: '15625', isCorrect: true },
-                { answerText: '19683', isCorrect: false },
-            ],
-        },
+			questionText: 'When four coins are tossed simultaneously, in _______ number of the outcomes at most two of the coins will turn up as heads',
+			answerOptions: [
+				{ answerText: '13', isCorrect: false },
+				{ answerText: '11', isCorrect: true },
+				{ answerText: '17', isCorrect: false },
+				{ answerText: '19', isCorrect: false },
+			],
+		},
         {
-            questionText: 'Find the next number:-1,5,23,59,119,209, 335,?',
-            answerOptions: [
-                { answerText: '556', isCorrect: false },
-                { answerText: '523', isCorrect: true },
-                { answerText: '509', isCorrect: false },
-                { answerText: '516', isCorrect: false },
-            ],
-        },
+			questionText: '1A: 2B: 3D: 5H: ?',
+			answerOptions: [
+				{ answerText: '8I', isCorrect: false },
+				{ answerText: '9L', isCorrect: false },
+				{ answerText: '8P', isCorrect: true },
+				{ answerText: '9S', isCorrect: false },
+			],
+		},
         {
-            questionText: '. Pointing to Manju, Raju said, “The son of her only brother is the brother of my wife”. How is Manju related to Raju?',
-            answerOptions: [
-                { answerText: 'Sister of father-in-law', isCorrect: true },
-                { answerText: 'Mother’s sister', isCorrect: false },
-                { answerText: 'Maternal aunt', isCorrect: false },
-                { answerText: 'Paternal aunt', isCorrect: false },
-            ],
-        },
+			questionText: 'What is the sum of the series:1/(1*2) + 1/(2*3)+ 1/(3*4)+………….+ 1/(100*101)',
+			answerOptions: [
+				{ answerText: '1/100', isCorrect: true },
+				{ answerText: '99/100', isCorrect: false },
+				{ answerText: '100/101', isCorrect: false },
+				{ answerText: '101/102', isCorrect: false },
+			],
+		},
         {
-            questionText: 'If 5@6=61 and 8@10=164, then 7@9=?',
-            answerOptions: [
-                { answerText: '125', isCorrect: false },
-                { answerText: '63', isCorrect: false },
-                { answerText: '130', isCorrect: true },
-                { answerText: '95', isCorrect: false },
-            ],
-        },
+			questionText: 'The probability of finding the parking slot occupied is 1/3.You find it empty for 9 consecutive days. Find the probability that it will be empty on the 10th day',
+			answerOptions: [
+				{ answerText: '1/3', isCorrect: true },
+				{ answerText: '3/5', isCorrect: false },
+				{ answerText: '7/11', isCorrect: false },
+				{ answerText: '5/16', isCorrect: false },
+			],
+		},
         {
-            questionText: 'After walking 6 kms, I turned right and travelled a distance of 2 kms, then turned left and covered a distance of 10 km. In the end I was moving towards the north. From which direction did I start my journey?',
-            answerOptions: [
-                { answerText: 'South-West', isCorrect: false },
-                { answerText: 'North', isCorrect: false },
-                { answerText: 'South', isCorrect: true },
-                { answerText: 'North-East', isCorrect: false },
-            ],
-        },
+			questionText: 'If 16 = 11, 25 = 12, 36 = 15, then 49 = ?',
+			answerOptions: [
+				{ answerText: '17', isCorrect: false },
+				{ answerText: '14', isCorrect: false },
+				{ answerText: '20', isCorrect: true },
+				{ answerText: '19', isCorrect: false },
+			],
+		},
         {
-            questionText: 'By how many degrees does the minute hand move in the same time, in which the hour hand moves by 18 degree?',
-            answerOptions: [
-                { answerText: '216 degree', isCorrect: true },
-                { answerText: '168 degree', isCorrect: false },
-                { answerText: '196 degree', isCorrect: false },
-                { answerText: '276 degree', isCorrect: false },
-            ],
-        },
+			questionText: 'From the alternatives, select the set which is most alike the set (23, 29, 31)',
+			answerOptions: [
+				{ answerText: '(17, 21, 29)', isCorrect: false },
+				{ answerText: '(31, 37, 49)', isCorrect: false },
+				{ answerText: '(13, 15, 23)', isCorrect: false },
+				{ answerText: '(41, 43, 47)', isCorrect: true },
+			],
+		},
         {
-            questionText: '. A software engineer has the capability of thinking 100 lines of code in five minutes and can type 100 lines of code in 10 minutes. He takes a break for five minutes after every ten minutes. How many lines of codes will he complete typing after an hour?',
-            answerOptions: [
-                { answerText: '220', isCorrect: false },
-                { answerText: '250', isCorrect: true },
-                { answerText: '150', isCorrect: false },
-                { answerText: '200', isCorrect: false },
-            ],
-        },
+			questionText: '5.	A man is climbing up a mountain which is inclined. He has to travel 100 km to reach the top of the mountain. Every day He climbs up 2 km forward in the day time. Exhausted, he then takes rest there at night time. At night, while he is asleep, he slips down 1 km backwards because the mountain is inclined. Then how many days does it take him to reach the mountain top?',
+			answerOptions: [
+				{ answerText: '97 days', isCorrect: false },
+				{ answerText: '99 days', isCorrect: true },
+				{ answerText: '95 days', isCorrect: false },
+				{ answerText: '89 days', isCorrect: false },
+			],
+		},
         {
-            questionText: 'A clock seen through a mirror shows 8 o’clock. What is the correct time?',
-            answerOptions: [
-                { answerText: '12.00', isCorrect: false },
-                { answerText: '12.40', isCorrect: false },
-                { answerText: '4.00', isCorrect: false },
-                { answerText: '8.00', isCorrect: true },
-            ],
-        },
+			questionText: 'If ‘+’ means ‘×’, ‘-‘ means ‘+’, ‘×’ means ‘÷’ and ‘÷’ means ‘-‘ then find the value of: 6 – 9 + 8 × 3 ÷ 20 = ……',
+			answerOptions: [
+				{ answerText: '18', isCorrect: false },
+				{ answerText: '5', isCorrect: false },
+				{ answerText: '34', isCorrect: false },
+				{ answerText: '10', isCorrect: true },
+			],
+		},
         {
-            questionText: 'Assume the ladder is NOT an extension ladder.A 25 ft ladder is placed with its foot 7 ft away from a building. If the top of the ladder slips down 4 ft, how many feet will the bottom slide out?',
-            answerOptions: [
-                { answerText: '15', isCorrect: false },
-                { answerText: '10', isCorrect: false },
-                { answerText: '8', isCorrect: true },
-                { answerText: '17', isCorrect: false },
-            ],
-        },
+			questionText: 'The number of girls who do wear a watch
+			is double the number who don't.
+			But the number of boys who do not wear a watch
+			is double the number who do.
+			If I tell you the number of girls in my class
+			is double the number of boys,
+			Can you tell me the number I teach? Here's a clue:
+			More than 20; below 32!',
+			answerOptions: [
+				{ answerText: '24', isCorrect: false },
+				{ answerText: '31', isCorrect: false },
+				{ answerText: '27', isCorrect: true },
+				{ answerText: '29', isCorrect: false },
+			],
+		},
         {
-            questionText: 'Between 1000 and 2000 you can get each integer as the sum of non-negative consecutive integers.For example,147+148+149+150+151+152+153 = 1050.There is only one number that you cannot get.What is this number?',
-            answerOptions: [
-                { answerText: '1126', isCorrect: false },
-                { answerText: '1426', isCorrect: false },
-                { answerText: '1386', isCorrect: false },
-                { answerText: '1024', isCorrect: true },
-            ],
-        },
-
+			questionText: 'On a 12-hour digital clock, what is the smallest interval between two times that are palindromic (can be read forwards and backwards as the same number)?',
+			answerOptions: [
+				{ answerText: '1 minute', isCorrect: false },
+				{ answerText: '5 minutes', isCorrect: false },
+				{ answerText: '2 minutes', isCorrect: true },
+				{ answerText: '7 minutes', isCorrect: false },
+			],
+		},
     ];
-
     const [currentQuestion, setCurrentQuestion] = useState(user.currentQuestion);
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(user.currentScore);
