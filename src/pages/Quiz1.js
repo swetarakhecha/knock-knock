@@ -1,151 +1,146 @@
-import React, { useState, useContext } from 'react'
+import React from 'react'
+import React, { useState } from 'react';
 import firebase from 'firebase'
-import Firebase from '../firebase.js'
-import './Quiz.css'
-import { UserContext } from '../UserContext'
+import Firebase from './firebase.js'
+export default function App() {
+	const questions = [
+		{
+			questionText: 'The probability that it is Friday and that a student is absent is 0.03. Since there are 5 school days in a week, the probability that it is Friday is 0.2. What is the probability that a student is absent given that today is Friday?',
+			answerOptions: [
+				{ answerText: '10%', isCorrect: false },
+				{ answerText: '15%', isCorrect: true },
+				{ answerText: '12%', isCorrect: false },
+				{ answerText: '13%', isCorrect: false },
+			],
+		},
+		{
+			questionText: 'You have two light bulbs in a 100-story building. You want to find out what floor the bulb will break on, using the least number of drops',
+			answerOptions: [
+				{ answerText: '50', isCorrect: false },
+				{ answerText: '16', isCorrect: true },
+				{ answerText: '09', isCorrect: false },
+				{ answerText: '12', isCorrect: false },
+			],
+		},
+		{
+			questionText: 'A bloke in a restaurant decides to challenge a waiter. He asks him to bring a glass, plate, water, a match and a lemon wedge. He then proceeds to pour enough water onto the plate to cover it."If you, good sir, can get the water into the glass from the plate without touching or moving it, you'll get $100", he challenges the waiter."You can use all of the items here".Shortly after the waiter walks away with the cash. What did he do?',
+			answerOptions: [
+				{ answerText: 'Created a vacuum in glass', isCorrect: true },
+				{ answerText: 'Created a hole in glass', isCorrect: false },
+				{ answerText: 'Placed the glass upside down', isCorrect: false },
+				{ answerText: 'Filled the glass', isCorrect: false },
+			],
+		},
+		{
+			questionText: 'The letters of the word COCHIN are permuted and all the permutations are arranged in alphabetically in a dictionary. The number of words that appear before the word COCHIN is?',
+			answerOptions: [
+				{ answerText: '80', isCorrect: false },
+				{ answerText: '84', isCorrect: false },
+				{ answerText: '90', isCorrect: false },
+				{ answerText: '96', isCorrect: true },
+			],
+		},
+        {
+			questionText: 'Given 9 balls, all of which weigh the same except for one, what is the minimum number of weighing necessary to find the ball with the different weight?',
+			answerOptions: [
+				{ answerText: '3', isCorrect: false },
+				{ answerText: '4', isCorrect: false },
+				{ answerText: '2', isCorrect: true },
+				{ answerText: '6', isCorrect: false },
+			],
+		},
+        {
+			questionText: 'Imagine that you have three boxes, one containing two black marbles, one containing two white marbles, and the third, one black marble and one white marble. The boxes were labelled for their contents - BB, WW, BW - but someone has switched the labels so that every box is now incorrectly labelled. You are allowed to take one marble at a time out of any box, without looking inside, and by this process of sampling, you need to determine the contents of all three boxes. What is the smallest number of drawings needed to do this?',
+			answerOptions: [
+				{ answerText: '2', isCorrect: false },
+				{ answerText: '3', isCorrect: false },
+				{ answerText: '1', isCorrect: true },
+				{ answerText: '4', isCorrect: false },
+			],
+		},
+        {
+			questionText: 'What five-letter word becomes shorter when you add two letters to it?',
+			answerOptions: [
+				{ answerText: 'Large', isCorrect: false },
+				{ answerText: 'Short', isCorrect: true },
+				{ answerText: 'Great', isCorrect: false },
+				{ answerText: 'Shorter', isCorrect: false },
+			],
+		},
+        {
+			questionText: 'The water level in a reservoir is low, but doubles every day. It takes 60 days to fill the reservoir. How long does it take for the reservoir to become half full?',
+			answerOptions: [
+				{ answerText: '59', isCorrect: true },
+				{ answerText: '30', isCorrect: false },
+				{ answerText: '54', isCorrect: false },
+				{ answerText: '31', isCorrect: false },
+			],
+		},
+        {
+			questionText: 'If 5@6=61 and 8@10=164, then 7@9=?',
+			answerOptions: [
+				{ answerText: '125', isCorrect: false },
+				{ answerText: '63', isCorrect: false },
+				{ answerText: '130', isCorrect: true },
+				{ answerText: '95', isCorrect: false },
+			],
+		},
+        {
+			questionText: 'What is 3/7 chicken, 2/3 cat, and 2/4 goat?',
+			answerOptions: [
+				{ answerText: 'Biryani', isCorrect: false },
+				{ answerText: 'Egg', isCorrect: false },
+				{ answerText: 'Chicago', isCorrect: true },
+				{ answerText: 'Chichat', isCorrect: false },
+			],
+		},
+        {
+			questionText: 'Guess the next three letters in the series GTNTL.',
+			answerOptions: [
+				{ answerText: 'ITS', isCorrect: true },
+				{ answerText: 'ENT', isCorrect: false },
+				{ answerText: 'ECG', isCorrect: false },
+				{ answerText: 'IPS', isCorrect: false },
+			],
+		},
+        {
+			questionText: 'What is next in this sequence of numbers: 1, 11, 21, 1211, 111221, 312211',
+			answerOptions: [
+				{ answerText: '13311312', isCorrect: false },
+				{ answerText: '13112221', isCorrect: true },
+				{ answerText: '14563466', isCorrect: false },
+				{ answerText: '13459876', isCorrect: false },
+			],
+		},
+        {
+			questionText: 'A pencil with a pentagonal cross section has the maker's logo imprinted on one of its five faces. If the pencil is rolled on the table, what is the probability that it stops with the logo facing up?',
+			answerOptions: [
+				{ answerText: '20%', isCorrect: false },
+				{ answerText: '10%', isCorrect: false },
+				{ answerText: '60%', isCorrect: false },
+				{ answerText: '0', isCorrect: true },
+			],
+		},
+        {
+			questionText: 'One carafe contains a litter of wine, another a litter of water. A spoonful of wine is moved from the wine carafe to the water carafe and mixed in. A spoonful of the mixture is then moved from the water carafe to the wine carafe',
+			answerOptions: [
+				{ answerText: 'There is more water in the wine carafe than wine in the water one.', isCorrect: false },
+				{ answerText: 'There is more wine in the water carafe than water in the wine carafe.', isCorrect: false },
+				{ answerText: 'There is the same in both.', isCorrect: true },
+				{ answerText: 'No idea-I just need wine now.', isCorrect: false },
+			],
+		},
+        {
+			questionText: 'A visitor points to a portrait on the wall and asks who it is. "Brothers and sisters, have I none," says the host, "but that man's father is my father's son." Who is pictured?',
+			answerOptions: [
+				{ answerText: 'The host's grandson', isCorrect: false },
+				{ answerText: 'The host's grandpa', isCorrect: false },
+				{ answerText: 'The host's father', isCorrect: false },
+				{ answerText: 'The host's son', isCorrect: true },
+			],
+		},
 
-export default function Quiz1() {
-    const user = useContext(UserContext);
-    const database = Firebase.database();
-    const questions = [
-        {
-            questionText: 'The probability that it is Friday and that a student is absent is 0.03. Since there are 5 school days in a week, the probability that it is Friday is 0.2. What is the probability that a student is absent given that today is Friday?',
-            answerOptions: [
-                { answerText: '10%', isCorrect: false },
-                { answerText: '15%', isCorrect: true },
-                { answerText: '12%', isCorrect: false },
-                { answerText: '13%', isCorrect: false },
-            ],
-        },
-        {
-            questionText: 'If the LCM of p, q is r2t4s2, where r, s, t are prime numbers and p, q are the positive integers then the number of ordered pairs (p, q)?',
-            answerOptions: [
-                { answerText: '210', isCorrect: false },
-                { answerText: '225', isCorrect: true },
-                { answerText: '275', isCorrect: false },
-                { answerText: '250', isCorrect: false },
-            ],
-        },
-        {
-            questionText: 'The number of arrangements of the letters of the word BANANA in which the two Ns do not appear adjacently?',
-            answerOptions: [
-                { answerText: '40', isCorrect: true },
-                { answerText: '44', isCorrect: false },
-                { answerText: '50', isCorrect: false },
-                { answerText: '48', isCorrect: false },
-            ],
-        },
-        {
-            questionText: 'The letters of the word COCHIN are permuted and all the permutations are arranged in alphabetically in a dictionary. The number of words that appear before the word COCHIN is?',
-            answerOptions: [
-                { answerText: '80', isCorrect: false },
-                { answerText: '84', isCorrect: false },
-                { answerText: '90', isCorrect: false },
-                { answerText: '96', isCorrect: true },
-            ],
-        },
-        {
-            questionText: 'A student is to answer 10 out of 13 questions in an examination such that he must choose at least 4 from the first 5 questions. The number of choices available to him is?',
-            answerOptions: [
-                { answerText: '172', isCorrect: false },
-                { answerText: '226', isCorrect: false },
-                { answerText: '196', isCorrect: true },
-                { answerText: '210', isCorrect: false },
-            ],
-        },
-        {
-            questionText: '8, 81, 1024,? ',
-            answerOptions: [
-                { answerText: '7776', isCorrect: false },
-                { answerText: '16384', isCorrect: false },
-                { answerText: '15625', isCorrect: true },
-                { answerText: '19683', isCorrect: false },
-            ],
-        },
-        {
-            questionText: 'Find the next number:-1,5,23,59,119,209, 335,?',
-            answerOptions: [
-                { answerText: '556', isCorrect: false },
-                { answerText: '523', isCorrect: true },
-                { answerText: '509', isCorrect: false },
-                { answerText: '516', isCorrect: false },
-            ],
-        },
-        {
-            questionText: 'Pointing to Manju, Raju said, “The son of her only brother is the brother of my wife”. How is Manju related to Raju?',
-            answerOptions: [
-                { answerText: 'Sister of father-in-law', isCorrect: true },
-                { answerText: 'Mother’s sister', isCorrect: false },
-                { answerText: 'Maternal aunt', isCorrect: false },
-                { answerText: 'Paternal aunt', isCorrect: false },
-            ],
-        },
-        {
-            questionText: 'If 5@6=61 and 8@10=164, then 7@9=?',
-            answerOptions: [
-                { answerText: '125', isCorrect: false },
-                { answerText: '63', isCorrect: false },
-                { answerText: '130', isCorrect: true },
-                { answerText: '95', isCorrect: false },
-            ],
-        },
-        {
-            questionText: 'After walking 6 kms, I turned right and travelled a distance of 2 kms, then turned left and covered a distance of 10 km. In the end I was moving towards the north. From which direction did I start my journey?',
-            answerOptions: [
-                { answerText: 'South-West', isCorrect: false },
-                { answerText: 'North', isCorrect: false },
-                { answerText: 'South', isCorrect: true },
-                { answerText: 'North-East', isCorrect: false },
-            ],
-        },
-        {
-            questionText: 'By how many degrees does the minute hand move in the same time, in which the hour hand moves by 18 degree?',
-            answerOptions: [
-                { answerText: '216 degree', isCorrect: true },
-                { answerText: '168 degree', isCorrect: false },
-                { answerText: '196 degree', isCorrect: false },
-                { answerText: '276 degree', isCorrect: false },
-            ],
-        },
-        {
-            questionText: '. A software engineer has the capability of thinking 100 lines of code in five minutes and can type 100 lines of code in 10 minutes. He takes a break for five minutes after every ten minutes. How many lines of codes will he complete typing after an hour?',
-            answerOptions: [
-                { answerText: '220', isCorrect: false },
-                { answerText: '250', isCorrect: true },
-                { answerText: '150', isCorrect: false },
-                { answerText: '200', isCorrect: false },
-            ],
-        },
-        {
-            questionText: 'A clock seen through a mirror shows 8 o’clock. What is the correct time?',
-            answerOptions: [
-                { answerText: '12.00', isCorrect: false },
-                { answerText: '12.40', isCorrect: false },
-                { answerText: '4.00', isCorrect: false },
-                { answerText: '8.00', isCorrect: true },
-            ],
-        },
-        {
-            questionText: 'Assume the ladder is NOT an extension ladder.A 25 ft ladder is placed with its foot 7 ft away from a building. If the top of the ladder slips down 4 ft, how many feet will the bottom slide out?',
-            answerOptions: [
-                { answerText: '15', isCorrect: false },
-                { answerText: '10', isCorrect: false },
-                { answerText: '8', isCorrect: true },
-                { answerText: '17', isCorrect: false },
-            ],
-        },
-        {
-            questionText: 'Between 1000 and 2000 you can get each integer as the sum of non-negative consecutive integers.For example,147+148+149+150+151+152+153 = 1050.There is only one number that you cannot get.What is this number?',
-            answerOptions: [
-                { answerText: '1126', isCorrect: false },
-                { answerText: '1426', isCorrect: false },
-                { answerText: '1386', isCorrect: false },
-                { answerText: '1024', isCorrect: true },
-            ],
-        },
-
-    ];
-
+	];
     const [currentQuestion, setCurrentQuestion] = useState(user.currentQuestion);
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
